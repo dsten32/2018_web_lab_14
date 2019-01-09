@@ -13,6 +13,8 @@
 <body>
 <ul>
     <li><a href="ImageGalleryDisplay">Image Gallery</a></li>
+    <li><a href="exercise01-01.jsp">EX01a</a></li>
+    <li><a href="exercise01-02.jsp">EX01b</a></li>
 </ul>
 </body>
 </html>
