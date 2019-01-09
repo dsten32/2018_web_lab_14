@@ -17,6 +17,7 @@
     <li><a href="exercise01-02.jsp">EX01b</a></li>
     <li><a href="exercise02-01.jsp">EX02a</a></li>
     <li><a href="exercise02-02.jsp">EX02b</a></li>
+    <li><a href="./lab02/ex08/edmund_hillary.html">Edmund</a></li>
 </ul>
 </body>
 </html>

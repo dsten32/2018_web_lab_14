@@ -13,4 +13,18 @@
         <servlet-name>ImageGalleryDisplay</servlet-name>
         <url-pattern>/ImageGalleryDisplay</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>jsp</servlet-name>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.html</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>jsp</servlet-name>
+        <url-pattern>*.jsp</url-pattern>
+    </servlet-mapping>
+
+
 </web-app>
