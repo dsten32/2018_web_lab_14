@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HTML Form Page</title>
+</head>
+<body>
+<fieldset>
+    <legend>Your Details</legend>
+<br>
+
+    <label for="nameinput">Name:</label>
+    <br>
+    <input type="text" name="name" id="nameinput">
+
+<br>
+    <br>
+    <label for="emailinput">Email:</label>
+    <br>
+    <input type="text" name="email" id="emailinput">
+<br>
+    <br>
+    <label for="cityinput">Your city:</label>
+    <br>
+    <input type="text" name="city" id="cityinput">
+</fieldset>
+
+<fieldset>
+    <legend>Questionnaire</legend>
+    <p>How are you finding the course? Tick all applicable</p>
+
+    <input type="checkbox" id="eCheckbox" name="eval_course" value="Enjoy">
+    <label for="eCheckbox">Enjoying it</label>
+
+    <input type="checkbox" id="cCheckbox" name="eval_course" value="Chall">
+    <label for="cCheckbox">Challenging</label>
+
+    <input type="checkbox" id="sCheckbox" name="eval_course" value="catchingup">
+    <label for="sCheckbox">Still catching up</label>
+
+    <input type="checkbox" id="thCheckbox" name="eval_course" value="toohard">
+    <label for="thCheckbox">Too hard</label>
+
+    <input type="checkbox" id="tmCheckbox" name="eval_course" value="toomany">
+    <label for="tmCheckbox">Too many exercises</label>
+
+    <input type="checkbox" id="neCheckbox" name="eval_course" value="notenough">
+    <label for="neCheckbox">Not enough exercises</label>
+
+    <input type="checkbox" id="cfCheckbox" name="eval_course" value="confused">
+    <label for="cfCheckbox">confused</label>
+
+    <p>
+        Choose the one that best describes your experience so far
+    </p>
+    <input type="radio" checked name="experience" value="alot" id="alot">
+    <label for="alot">Learning a lot</label>
+
+    <input type="radio" name="experience" value="notalot" id="notalot">
+    <label for="notalot">Not learning enough</label>
+
+    <input type="radio" name="experience" value="ok" id="ok">
+    <label for="ok">Okay</label>
+
+<br>
+    <br>
+    <br>
+
+
+    <label for="animal">Pick your favourite animal:</label>
+    <select id="animal" name="favanimal">
+        <option value="Mandarin Duck" selected>Mandarin Duck</option>
+        <option value="Quokka" >Quokka</option>
+        <option value="Wombat" >Wombat</option>
+        <option value="Lynx" >Lynx</option>
+        <option value="pika" >pika</option>
+        <option value="Red Panda" >Red Panda</option>
+    </select>
+    <br>
+    <br>
+    <br>
+    <br>
+
+    <textarea id="More" name="any_more" rows="8" cols="100">Additional comments here</textarea>
+
+
+</fieldset>
+<br>
+<input type="submit" value="Done!">
+<input type="reset" value="Clear!">
+
+
+
+
+</body>
+</html>
