@@ -81,7 +81,7 @@ public class ImageGalleryDisplay extends HttpServlet {
 
         File[] files = photosFolder.listFiles(); // File objects returned can be folders
         List<FileInfo> fileDataList = new LinkedList<FileInfo>();
-        request.setAttribute("fileDataList",fileDataList);
+
 
         File thumbPath = null;
         for (int i = 0; i < files.length; i++) {
@@ -101,18 +101,21 @@ public class ImageGalleryDisplay extends HttpServlet {
                     String fileNamePrefix = filename.substring(0, filename.lastIndexOf("."));
                     thumbPath = new File(parentFolder, fileNamePrefix + THUMBNAIL_SUFFIX);
                     if (thumbPath.exists()) {
-                        fileDataList.add(new FileInfo(thumbPath, fullfileSize, files[i]));
+                        fileDataList.add(new FileInfo(thumbPath, fullfileSize, files[i],files[i].getName(),fileNamePrefix+THUMBNAIL_SUFFIX));
                     } else {
                         out.println("Could not find thumbnail " + thumbPath.getName() + " for image " + filename);
-                        fileDataList.add(new FileInfo(files[i], fullfileSize));
+                        fileDataList.add(new FileInfo(files[i], fullfileSize,files[i].getName(),fileNamePrefix+THUMBNAIL_SUFFIX));
                     }
                 }
             }
         }
 
+        //adding the file list to the request to send to the jsp page
+        request.setAttribute("fileDataList",fileDataList);
 
         if (fileDataList.size() == 0) {
-            out.println("<p>No images found in Photos folder " + photosPath + ".</p>");
+            response.sendError(500,"No images found in Photos folder " + photosPath + ".");
+//            out.println("<p>No images found in Photos folder " + photosPath + ".</p>");
         } else {
 
             // Get filenameSortToggle, filesizeSortToggle sort orders, if stored. Else store their initial values as ascending
@@ -149,36 +152,36 @@ public class ImageGalleryDisplay extends HttpServlet {
             // the sort order toggle image displayed reflects the current state of the sort order
             // but the sort order that is used when clicking on a sorting link is the future (toggled) sort order
 
-            out.println("<table>");
-            out.println("<tr><th>Thumbnail</th>");
-            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filename&order=" + filenameSortToggle
-                    + "ending'>Filename <img src='images/sort-" + currFilenameSortToggle + ".png' alt='icon' /></a></th>");
-            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filesize&order=" + filesizeSortToggle
-                    + "ending'>File-size <img src='images/sort-" + currFilesizeSortToggle + ".png'  alt='icon' /></a></th>");
-            out.println("</tr>");
+//            out.println("<table>");
+//            out.println("<tr><th>Thumbnail</th>");
+//            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filename&order=" + filenameSortToggle
+//                    + "ending'>Filename <img src='images/sort-" + currFilenameSortToggle + ".png' alt='icon' /></a></th>");
+//            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filesize&order=" + filesizeSortToggle
+//                    + "ending'>File-size <img src='images/sort-" + currFilesizeSortToggle + ".png'  alt='icon' /></a></th>");
+//            out.println("</tr>");
 
-            for (int i = 0; i < fileDataList.size(); i++) {
-                FileInfo fileData = fileDataList.get(i);
-                File thumbNailFile = fileData.thumbPath;
-                if (thumbNailFile == null) continue;
-
-                File fullFile = fileData.fullFile;
-                long filesize = fileData.fullfileSize;
-                String displayStr = fileData.thumbDisplay;
-
-                out.append("<tr>\n<td>");
-                out.println("<a href='Photos/" + fullFile.getName() + "'>");
-                out.println("<img src='Photos/" + thumbNailFile.getName() + "' alt='" + displayStr + "' />");
-                out.append("</a>");
-                out.append("</td>\n<td>");
-                out.append(displayStr);
-                out.append("</td>\n<td>");
-                out.print(filesize);
-                out.println("</td>\n</tr>");
-            }
-            out.println("</table>\n");
+//            for (int i = 0; i < fileDataList.size(); i++) {
+//                FileInfo fileData = fileDataList.get(i);
+//                File thumbNailFile = fileData.thumbPath;
+//                if (thumbNailFile == null) continue;
+//
+//                File fullFile = fileData.fullFile;
+//                long filesize = fileData.fullfileSize;
+//                String displayStr = fileData.thumbDisplay;
+//
+////                out.append("<tr>\n<td>");
+////                out.println("<a href='Photos/" + fullFile.getName() + "'>");
+////                out.println("<img src='Photos/" + thumbNailFile.getName() + "' alt='" + displayStr + "' />");
+////                out.append("</a>");
+////                out.append("</td>\n<td>");
+////                out.append(displayStr);
+////                out.append("</td>\n<td>");
+////                out.print(filesize);
+////                out.println("</td>\n</tr>");
+//            }
+//            out.println("</table>\n");
         }
-        out.println("</body>\n</html>");
+//        out.println("</body>\n</html>");
 
         //send on to jsp file
         request.getRequestDispatcher("ImageGalleryUI.jsp").forward(request,response);
@@ -290,27 +293,41 @@ public class ImageGalleryDisplay extends HttpServlet {
         doGet(request, response);
     }
 
-//adding serialisable implementation and getters to set up as a Javabean
+    //adding serialisable implementation and getters to set up as a Javabean
     public class FileInfo implements Serializable {
         final File thumbPath;
         final long fullfileSize;
         final File fullFile;
         final String thumbDisplay;
+        final String fileName;
+        final String thumbFileName;
 
-        public FileInfo(File fullfile, long size) {
+        public FileInfo(File fullfile, long size,String fileName,String thumbFileName) {
             this.fullFile = fullfile;
             this.fullfileSize = size;
+            this.thumbFileName = thumbFileName;
             this.thumbPath = null;
             this.thumbDisplay = null;
+            this.fileName = fileName;
         }
 
-        public FileInfo(File thumbfile, long size, File fullfile) {
+        public FileInfo(File thumbfile, long size, File fullfile,String fileName,String thumbFileName) {
             this.thumbPath = thumbfile;
             this.fullfileSize = size;
             this.fullFile = fullfile;
+            this.thumbFileName = thumbFileName;
             this.thumbDisplay = thumbDisplayString();
+            this.fileName = fileName;
         }
 
+        public String getThumbFileName() {
+            return thumbFileName;
+        }
+
+
+        public String getFileName() {
+            return fileName;
+        }
         public File getThumbPath() {
             return thumbPath;
         }
