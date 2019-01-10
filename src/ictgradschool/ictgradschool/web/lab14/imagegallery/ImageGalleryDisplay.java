@@ -38,11 +38,13 @@ public class ImageGalleryDisplay extends HttpServlet {
     // servletContext() only accessible from init(), not from constructor 
     public void init() {
         photosPath = getServletContext().getRealPath("Photos");
+
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
         //response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -51,25 +53,29 @@ public class ImageGalleryDisplay extends HttpServlet {
         // This step needs to be done before any output to the page
         // we'll be storing sort order constraints in the session in the function doSortDisplay()
 
+        request.setAttribute("photosPath",photosPath);
+        request.getRequestDispatcher("ImageGalleryUI.jsp").forward(request,response);
+
         PrintWriter out = response.getWriter();
-
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<meta charset='UTF-8' />");
-        out.println("<title>Image gallery display</title>");
-        out.println("</head>\n<body>");
-
-        out.println("<p>Photos path: " + photosPath + "</p>");
+//        out.println("<!DOCTYPE html>");
+//        out.println("<html>");
+//        out.println("<head>");
+//        out.println("<meta charset='UTF-8' />");
+//        out.println("<title>Image gallery display</title>");
+//        out.println("</head>\n<body>");
+//
+//        out.println("<p>Photos path: " + photosPath + "</p>");
         File photosFolder = new File(photosPath);
 
         if (!photosFolder.exists()) {
-            out.println("<p>Photos folder " + photosPath + " does not exist.</p>");
-            out.println("</body>\n</html>");
+            response.sendError(500,"Photos folder " + photosPath + " does not exist.");
+//            out.println("<p>Photos folder " + photosPath + " does not exist.</p>");
+//            out.println("</body>\n</html>");
             return;
         } else if (!photosFolder.canRead()) {
-            out.println("<p>Photos folder " + photosPath + " can't be read.</p>");
-            out.println("</body>\n</html>");
+            response.sendError(500,"Photos folder " + photosPath + " can't be read.");
+//            out.println("<p>Photos folder " + photosPath + " can't be read.</p>");
+//            out.println("</body>\n</html>");
             return;
         }
 
@@ -172,6 +178,7 @@ public class ImageGalleryDisplay extends HttpServlet {
             out.println("</table>\n");
         }
         out.println("</body>\n</html>");
+
     }
 
 
