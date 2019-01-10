@@ -11,6 +11,36 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        table,thead,th,tr,td {
+            border: black;
+            border-width: thin;
+        }
+        th{
+            height: 50px;
+            background-color: pink;
+            border: black;
+            border-width: 1px;
+            width: max-content;
+            padding-left: 10px;
+        }
+
+        td.name{
+            background-color: lavender;
+            width: max-content;
+            padding-left: 10px;
+            border: black;
+            border-width: 1px;
+        }
+
+        td.size{
+            background-color: lightgray;
+            width: max-content;
+            padding-left: 10px;
+            border: black;
+            border-width: 1px;
+        }
+    </style>
 </head>
 <body>
 
@@ -19,7 +49,6 @@
     <thead>
     <tr>
         <th>Thumbnail</th>
-        <%--<th>Filename </th>--%>
         <th><a href='ImageGalleryDisplay?sortColumn=filename&order=${filenameSortToggle}ending'>Filename <img src='images/sort-${filenameSortToggle}.png' alt='icon' /></a></th>
         <th><a href='ImageGalleryDisplay?sortColumn=filesize&order=${filesizeSortToggle}ending'>File-size <img src='images/sort-${filesizeSortToggle}.png'  alt='icon' /></a></th>
     </tr>
@@ -28,8 +57,8 @@
 
     <tr>
         <td><a href="./Photos/${file.fileName}" ><img width="110px" src="./Photos/${file.thumbFileName}"></a></td>
-        <td>${file.thumbDisplay}</td>
-        <td>${file.fullfileSize} kb</td>
+        <td class="name">${file.thumbDisplay}</td>
+        <td class="size">${file.fullfileSize} kb</td>
     </tr>
 </core:forEach>
 </table>
