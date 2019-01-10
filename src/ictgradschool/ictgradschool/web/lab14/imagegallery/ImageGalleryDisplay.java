@@ -5,6 +5,7 @@ import javax.servlet.http.*;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -278,8 +279,8 @@ public class ImageGalleryDisplay extends HttpServlet {
         doGet(request, response);
     }
 
-
-    private class FileInfo {
+//adding serialisable implementation and getters to set up as a Javabean
+    public class FileInfo implements Serializable {
         final File thumbPath;
         final long fullfileSize;
         final File fullFile;
@@ -299,6 +300,22 @@ public class ImageGalleryDisplay extends HttpServlet {
             this.thumbDisplay = thumbDisplayString();
         }
 
+        public File getThumbPath() {
+            return thumbPath;
+        }
+
+        public long getFullfileSize() {
+            return fullfileSize;
+        }
+
+        public File getFullFile() {
+            return fullFile;
+        }
+
+        public String getThumbDisplay() {
+            return thumbDisplay;
+        }
+
         // return a tidy display string for the thumbnail name
         private String thumbDisplayString() {
             String displayStr = thumbPath.getName(); // path removed
@@ -306,6 +323,7 @@ public class ImageGalleryDisplay extends HttpServlet {
             displayStr = displayStr.replace('_', ' '); // _ replaced with space
             return displayStr;
         }
+
 
     }
 
