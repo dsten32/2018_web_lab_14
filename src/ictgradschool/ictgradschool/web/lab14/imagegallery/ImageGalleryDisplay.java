@@ -57,25 +57,14 @@ public class ImageGalleryDisplay extends HttpServlet {
 
 
         PrintWriter out = response.getWriter();
-//        out.println("<!DOCTYPE html>");
-//        out.println("<html>");
-//        out.println("<head>");
-//        out.println("<meta charset='UTF-8' />");
-//        out.println("<title>Image gallery display</title>");
-//        out.println("</head>\n<body>");
-//
-//        out.println("<p>Photos path: " + photosPath + "</p>");
+
         File photosFolder = new File(photosPath);
 
         if (!photosFolder.exists()) {
             response.sendError(500,"Photos folder " + photosPath + " does not exist.");
-//            out.println("<p>Photos folder " + photosPath + " does not exist.</p>");
-//            out.println("</body>\n</html>");
             return;
         } else if (!photosFolder.canRead()) {
             response.sendError(500,"Photos folder " + photosPath + " can't be read.");
-//            out.println("<p>Photos folder " + photosPath + " can't be read.</p>");
-//            out.println("</body>\n</html>");
             return;
         }
 
@@ -115,7 +104,6 @@ public class ImageGalleryDisplay extends HttpServlet {
 
         if (fileDataList.size() == 0) {
             response.sendError(500,"No images found in Photos folder " + photosPath + ".");
-//            out.println("<p>No images found in Photos folder " + photosPath + ".</p>");
         } else {
 
             // Get filenameSortToggle, filesizeSortToggle sort orders, if stored. Else store their initial values as ascending
@@ -147,41 +135,12 @@ public class ImageGalleryDisplay extends HttpServlet {
             filenameSortToggle = (String) session.getAttribute("filenameSortToggle");
             filesizeSortToggle = (String) session.getAttribute("filesizeSortToggle");
 
-            //out.println("*** future: " + filenameSortToggle + " - current: " + currFilenameSortToggle);
 
             // the sort order toggle image displayed reflects the current state of the sort order
             // but the sort order that is used when clicking on a sorting link is the future (toggled) sort order
 
-//            out.println("<table>");
-//            out.println("<tr><th>Thumbnail</th>");
-//            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filename&order=" + filenameSortToggle
-//                    + "ending'>Filename <img src='images/sort-" + currFilenameSortToggle + ".png' alt='icon' /></a></th>");
-//            out.println("<th><a href='ImageGalleryDisplay?sortColumn=filesize&order=" + filesizeSortToggle
-//                    + "ending'>File-size <img src='images/sort-" + currFilesizeSortToggle + ".png'  alt='icon' /></a></th>");
-//            out.println("</tr>");
 
-//            for (int i = 0; i < fileDataList.size(); i++) {
-//                FileInfo fileData = fileDataList.get(i);
-//                File thumbNailFile = fileData.thumbPath;
-//                if (thumbNailFile == null) continue;
-//
-//                File fullFile = fileData.fullFile;
-//                long filesize = fileData.fullfileSize;
-//                String displayStr = fileData.thumbDisplay;
-//
-////                out.append("<tr>\n<td>");
-////                out.println("<a href='Photos/" + fullFile.getName() + "'>");
-////                out.println("<img src='Photos/" + thumbNailFile.getName() + "' alt='" + displayStr + "' />");
-////                out.append("</a>");
-////                out.append("</td>\n<td>");
-////                out.append(displayStr);
-////                out.append("</td>\n<td>");
-////                out.print(filesize);
-////                out.println("</td>\n</tr>");
-//            }
-//            out.println("</table>\n");
         }
-//        out.println("</body>\n</html>");
 
         //send on to jsp file
         request.getRequestDispatcher("ImageGalleryUI.jsp").forward(request,response);
