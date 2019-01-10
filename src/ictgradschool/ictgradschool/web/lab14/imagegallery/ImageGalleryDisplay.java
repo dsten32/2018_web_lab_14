@@ -54,7 +54,7 @@ public class ImageGalleryDisplay extends HttpServlet {
         // we'll be storing sort order constraints in the session in the function doSortDisplay()
 
         request.setAttribute("photosPath",photosPath);
-        request.getRequestDispatcher("ImageGalleryUI.jsp").forward(request,response);
+
 
         PrintWriter out = response.getWriter();
 //        out.println("<!DOCTYPE html>");
@@ -81,6 +81,7 @@ public class ImageGalleryDisplay extends HttpServlet {
 
         File[] files = photosFolder.listFiles(); // File objects returned can be folders
         List<FileInfo> fileDataList = new LinkedList<FileInfo>();
+        request.setAttribute("fileDataList",fileDataList);
 
         File thumbPath = null;
         for (int i = 0; i < files.length; i++) {
@@ -178,6 +179,9 @@ public class ImageGalleryDisplay extends HttpServlet {
             out.println("</table>\n");
         }
         out.println("</body>\n</html>");
+
+        //send on to jsp file
+        request.getRequestDispatcher("ImageGalleryUI.jsp").forward(request,response);
 
     }
 
