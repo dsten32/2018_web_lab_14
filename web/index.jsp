@@ -18,7 +18,7 @@
     <li><a href="exercise02-01.jsp">EX02a</a></li>
     <li><a href="exercise02-02.jsp">EX02b</a></li>
     <li><a href="./lab02/ex08/edmund_hillary.html">Edmund</a></li>
-    <li><a href="CGIParamsSurvey.html">Survey</a></li>
+    <li><a href="FormData.jsp">Survey</a></li>
 </ul>
 </body>
 </html>
